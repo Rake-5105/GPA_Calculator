@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College GPA Calculator</title>
+    <style>
+        body {
+            font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: #000000 url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+            color: #FFFFFF;
+        }
+
+        .container {
+            width: 75%;
+            max-width: 1200px;
+            min-height: 80vh;
+            margin: 24px auto;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.85);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1), inset 0 0 10px rgba(255, 255, 255, 0.2);
+            border: 1px solid #FFFFFF;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding: 16px;
+            background: linear-gradient(to right, #333333, #000000);
+            border-radius: 12px;
+            border: 2px dashed #FFFFFF;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
+            transform: rotate(20deg);
+            pointer-events: none;
+        }
+
+        .college-name {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+            color: #FFFFFF;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        .calculator-title {
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: #CCCCCC;
+            font-style: italic;
+        }
+
+        .form-section {
+            margin: 16px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            border: 1px solid #FFFFFF;
+        }
+
+        .select-label {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: #FFFFFF;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 16px;
+            background: #333333;
+            border: 2px solid #FFFFFF;
+            border-radius: 8px;
+            color: #FFFFFF;
+            font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        select:hover, select:focus {
+            background: #555555;
+            border-color: #CCCCCC;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+            transform: scale(1.02);
+        }
+
+        .subject-container {
+            padding: 16px;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px dotted #FFFFFF;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .subject-container:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px) rotate(1deg);
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .grade-select {
+            width: 120px;
+            padding: 8px;
+            font-size: 0.9rem;
+            background: #333333;
+            color: #FFFFFF;
+            border: 2px solid #FFFFFF;
+            border-radius: 6px;
+        }
+
+        label {
+            font-size: 1rem;
+            color: #FFFFFF;
+            flex: 1;
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+        }
+
+        .calculate-button, .reset-button {
+            display: block;
+            width: 180px;
+            margin: 24px auto;
+            padding: 16px;
+            background: linear-gradient(45deg, #FFFFFF, #CCCCCC);
+            border: none;
+            border-radius: 10px;
+            color: #000000;
+            font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculate-button::after, .reset-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+        }
+
+        .calculate-button:hover::after, .reset-button:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .calculate-button:hover, .reset-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.5);
+        }
+
+        option {
+            background: #333333;
+            color: #FFFFFF;
+            padding: 8px;
+        }
+
+        .warning {
+            color: #FF5555;
+            font-size: 1rem;
+            text-align: center;
+            margin-top: 10px;
+            text-shadow: 0 0 2px rgba(255, 85, 85, 0.5);
+        }
+
+        .logo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+            background: url('https://via.placeholder.com/50?text=Grok') no-repeat center;
+            background-size: contain;
+        }
+
+        @media (max-width: 1920px) {
+            .container {
+                width: 80%;
+                margin: 24px auto;
+            }
+            .college-name {
+                font-size: 2rem;
+            }
+            .calculator-title {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+    <script>
+        function updateDepartment() {
+            const degree = document.getElementById("degree").value;
+            const department = document.getElementById("department");
+            const semester = document.getElementById("semester");
+            const subjectsContainer = document.getElementById("subjects-container");
+            department.innerHTML = "";
+            semester.innerHTML = "";
+            subjectsContainer.innerHTML = "";
+            
+            const departments = {
+                "be": ["CYS", "CSE", "ECE", "EEE", "Mech", "Civil", "EIE", "MDE"],
+                "btech": ["AIDS", "IT", "AGRI"],
+                "me": ["SE", "CSE", "CS", "PS", "CI", "ISE"],
+                "mtech": ["DS"],
+                "mba": ["MBA"],
+                "mca": ["MCA"]
+            };
+            
+            let option = document.createElement("option");
+            option.value = "select";
+            option.textContent = "SELECT";
+            department.appendChild(option);
+            
+            if (departments[degree]) {
+                departments[degree].forEach(dep => {
+                    let option = document.createElement("option");
+                    option.value = dep.toLowerCase().replace(/\s+/g, "_");
+                    option.textContent = dep;
+                    department.appendChild(option);
+                });
+            }
+            
+            let semOptions = degree === "be" || degree === "btech" ? 8 : 4;
+            const romanNumerals = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
+            
+            let semOption = document.createElement("option");
+            semOption.value = "select";
+            semOption.textContent = "SELECT";
+            semester.appendChild(semOption);
+            
+            for (let i = 0; i < semOptions; i++) {
+                let semOption = document.createElement("option");
+                semOption.value = romanNumerals[i];
+                semOption.textContent = romanNumerals[i];
+                semester.appendChild(semOption);
+            }
+        }
+
+        function updateSubjects() {
+            const semester = document.getElementById("semester").value;
+            const degree = document.getElementById("degree").value;
+            const department = document.getElementById("department").value;
+            const regulation = document.getElementById("regulation").value;
+            const subjectsContainer = document.getElementById("subjects-container");
+            subjectsContainer.innerHTML = "";
+            
+            if (regulation === "r2019" && department === "cys" && degree === "be") {
+                let subjects;
+                switch(semester) {
+                    case "I":
+                        subjects = [
+                            {code: "1919101", name: "Communicative English", credits: 3},
+                            {code: "1918102", name: "Engineering Mathematics–I", credits: 4},
+                            {code: "1920103", name: "Engineering Physics", credits: 3},
+                            {code: "1921104", name: "Engineering Chemistry", credits: 3},
+                            {code: "1901006", name: "Programming in C", credits: 3},
+                            {code: "1901007", name: "Engineering Graphics", credits: 4},
+                            {code: "1901108", name: "Physics and Chemistry Laboratory", credits: 2},
+                            {code: "1901010", name: "C Programming Laboratory", credits: 2}
+                        ];
+                        break;
+                    case "II":
+                        subjects = [
+                            {code: "1919201", name: "Technical English", credits: 3},
+                            {code: "1918202", name: "Engineering Mathematics–II", credits: 4},
+                            {code: "1920202", name: "Physics for Information Science", credits: 3},
+                            {code: "1921203", name: "Environmental Science and Engineering", credits: 3},
+                            {code: "1901005", name: "Problem Solving and Python Programming", credits: 3},
+                            {code: "1901008", name: "Basic Civil and Mechanical Engineering", credits: 3},
+                            {code: "1901009", name: "Problem Solving and Python Programming Laboratory", credits: 2},
+                            {code: "1901208", name: "Engineering Practices Laboratory", credits: 2},
+                            {code: "1901209", name: "Applied Physics and Environmental Chemistry Laboratory", credits: 2},
+                            {code: "1901200", name: "NSS/NCC/YRC/NSO", credits: 1}
+                        ];
+                        break;
+                    case "III":
+                        subjects = [
+                            {code: "1918302", name: "Discrete Mathematics", credits: 4},
+                            {code: "1904301", name: "Programming & Data Structures in C", credits: 3},
+                            {code: "1904302", name: "Object Oriented Programming", credits: 3},
+                            {code: "1906306", name: "Digital Fundamentals and Communication", credits: 3},
+                            {code: "1923301", name: "Introduction to Cyber Threats", credits: 3},
+                            {code: "1904001", name: "Database Management System", credits: 3},
+                            {code: "1904305", name: "Data Structures in C Laboratory", credits: 2},
+                            {code: "1904306", name: "Object Oriented Programming Laboratory", credits: 2},
+                            {code: "1904002", name: "Database Management System Laboratory", credits: 2}
+                        ];
+                        break;
+                    case "IV":
+                        subjects = [
+                            {code: "1918402", name: "Probability and Queueing Theory", credits: 4},
+                            {code: "1908006", name: "Computer Architecture", credits: 3},
+                            {code: "1923401", name: "Linux Operating Systems", credits: 3},
+                            {code: "1923402", name: "Database Security", credits: 3},
+                            {code: "1923403", name: "Cyber Laws and Ethics", credits: 3},
+                            {code: "1915001", name: "Professional Ethics", credits: 3},
+                            {code: "1923404", name: "Linux Operating Systems Laboratory", credits: 2},
+                            {code: "1923405", name: "Programming for Security Professionals Laboratory", credits: 2}
+                        ];
+                        break;
+                    case "V":
+                        subjects = [
+                            {code: "1918501", name: "Mathematical Foundation for Cyber Security System", credits: 4},
+                            {code: "1923501", name: "Cyber Security and Digital Forensics", credits: 3},
+                            {code: "1923502", name: "Ethical Hacking", credits: 3},
+                            {code: "1923503", name: "Intrusion Detection Systems", credits: 3},
+                            {code: "19xxxxx", name: "Open Elective-I", credits: 3},
+                            {code: "1923504", name: "Ethical Hacking Laboratory", credits: 2},
+                            {code: "1923505", name: "Cyber Forensics Laboratory", credits: 2}
+                        ];
+                        break;
+                    case "VI":
+                        subjects = [
+                            {code: "1923601", name: "Information Warfare", credits: 3},
+                            {code: "1904005", name: "Cryptography and Network Security", credits: 3},
+                            {code: "1923602", name: "Vulnerability Discovery and Exploit Development", credits: 3},
+                            {code: "1923603", name: "Security in Cloud Computing", credits: 3},
+                            {code: "19xxxxx", name: "Professional Elective-I", credits: 3},
+                            {code: "1904008", name: "Security Laboratory", credits: 2},
+                            {code: "1923607", name: "Network Threats and Attacks Laboratory", credits: 2},
+                            {code: "1919002", name: "Professional Communication", credits: 1},
+                            {code: "1923608", name: "Mini Project", credits: 2}
+                        ];
+                        break;
+                    case "VII":
+                        subjects = [
+                            {code: "1923701", name: "Biometric Security", credits: 3},
+                            {code: "1923702", name: "Cyber Threat Intelligence", credits: 3},
+                            {code: "19xxxxx", name: "Open Elective-II", credits: 3},
+                            {code: "19xxxxx", name: "Professional Elective-II", credits: 3},
+                            {code: "19xxxxx", name: "Professional Elective-III", credits: 3},
+                            {code: "1923710", name: "Biometric Image Processing Laboratory", credits: 2},
+                            {code: "1923711", name: "Security and Penetration Testing Laboratory", credits: 2},
+                            {code: "1923712", name: "Project Work Phase I", credits: 2},
+                            {code: "1923713", name: "Internship", credits: 1}
+                        ];
+                        break;
+                    case "VIII":
+                        subjects = [
+                            {code: "19xxxxx", name: "Professional Elective-IV", credits: 3},
+                            {code: "19xxxxx", name: "Professional Elective-V", credits: 3},
+                            {code: "1923808", name: "Project Work Phase II", credits: 6}
+                        ];
+                        break;
+                }
+                
+                if (subjects) {
+                    subjects.forEach(subject => {
+                        let div = document.createElement("div");
+                        div.classList.add("subject-container");
+                        
+                        let label = document.createElement("label");
+                        label.textContent = `${subject.code}-${subject.name}`;
+                        label.setAttribute('data-credits', subject.credits);
+                        
+                        let gradeSelect = document.createElement("select");
+                        gradeSelect.classList.add("grade-select");
+                        gradeSelect.innerHTML = `
+                            <option value="select">SELECT</option>
+                            <option value="O">O</option>
+                            <option value="A+">A+</option>
+                            <option value="A">A</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="RA">RA</option>
+                            <option value="W">W</option>
+                        `;
+                        
+                        div.appendChild(label);
+                        div.appendChild(gradeSelect);
+                        subjectsContainer.appendChild(div);
+                    });
+                }
+            }
+            else if (regulation === "r2023" && department === "cys" && degree === "be") {
+                let subjects;
+                switch(semester) {
+                    case "I":
+                        subjects = [
+                            {code: "EN3111", name: "Professional English - I", credits: 3},
+                            {code: "MA3122", name: "Matrices and Calculus", credits: 4},
+                            {code: "PH3123", name: "Engineering Physics", credits: 3},
+                            {code: "CH3124", name: "Engineering Chemistry", credits: 3},
+                            {code: "GE3131", name: "Basic Electrical and Electronics Engineering", credits: 3},
+                            {code: "GE3111", name: "Heritage of Tamils", credits: 1},
+                            {code: "GE3121", name: "Physics and Chemistry Laboratory", credits: 2},
+                            {code: "GE3134", name: "Engineering Practices Laboratory", credits: 2},
+                            {code: "EN3119", name: "English Language Learning Laboratory", credits: 1}
+                        ];
+                        break;
+                    case "II":
+                        subjects = [
+                            {code: "EN3211", name: "Professional English - II", credits: 3},
+                            {code: "MA3222", name: "Statistics and Numerical Methods", credits: 4},
+                            {code: "PH3222", name: "Physics for Information Science", credits: 3},
+                            {code: "CH3222", name: "Chemistry for Information Science", credits: 3},
+                            {code: "GE3231", name: "Problem Solving and Python Programming", credits: 3},
+                            {code: "GE3211", name: "Tamils and Technology", credits: 1},
+                            {code: "GE3233", name: "Engineering Graphics and Design", credits: 3},
+                            {code: "GE3221", name: "Engineering Sciences Laboratory", credits: 2},
+                            {code: "GE3232", name: "Problem Solving and Python Programming Laboratory", credits: 2},
+                            {code: "GE3251", name: "NSS / YRC / NSO / Club Activities", credits: 1}
+                        ];
+                        break;
+                    case "III":
+                        subjects = [
+                            {code: "MA3322", name: "Discrete Mathematics", credits: 3},
+                            {code: "AD3363", name: "Digital Principles and Computer Organization", credits: 3},
+                            {code: "IT3361", name: "Programming and Data Structures", credits: 3},
+                            {code: "CS3361", name: "Object Oriented Programming", credits: 3},
+                            {code: "CY3361", name: "Fundamentals of Computer Networks and Communication", credits: 3},
+                            {code: "CY3362", name: "Introduction to Cyber Security", credits: 3},
+                            {code: "IT3363", name: "Programming and Data Structures Laboratory", credits: 1.5},
+                            {code: "CS3364", name: "Object Oriented Programming Laboratory", credits: 1.5},
+                            {code: "CY3363", name: "Computer Networks and Communication Laboratory", credits: 1.5}
+                        ];
+                        break;
+                    case "IV":
+                        subjects = [
+                            {code: "MA3422", name: "Applied Mathematics for Information Science", credits: 2},
+                            {code: "CS3463", name: "Database Management Systems", credits: 3},
+                            {code: "IT3461", name: "Operating Systems", credits: 3},
+                            {code: "CY3461", name: "Basics of Cyber Forensics", credits: 3},
+                            {code: "CY3462", name: "Secure Software Engineering", credits: 3},
+                            {code: "CY3463", name: "Cyber Laws and Ethics", credits: 3},
+                            {code: "CS3466", name: "Database Management Systems Laboratory", credits: 1.5},
+                            {code: "IT3464", name: "Operating Systems Laboratory", credits: 1.5},
+                            {code: "CY3464", name: "Open Source Software Laboratory", credits: 1.5}
+                        ];
+                        break;
+                }
+
+                if (subjects) {
+                    subjects.forEach(subject => {
+                        let div = document.createElement("div");
+                        div.classList.add("subject-container");
+                        
+                        let label = document.createElement("label");
+                        label.textContent = `${subject.code}-${subject.name}`;
+                        label.setAttribute('data-credits', subject.credits);
+                        
+                        let gradeSelect = document.createElement("select");
+                        gradeSelect.classList.add("grade-select");
+                        gradeSelect.innerHTML = `
+                            <option value="select">SELECT</option>
+                            <option value="O">O</option>
+                            <option value="A+">A+</option>
+                            <option value="A">A</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="RA">RA</option>
+                            <option value="W">W</option>
+                        `;
+                        
+                        div.appendChild(label);
+                        div.appendChild(gradeSelect);
+                        subjectsContainer.appendChild(div);
+                    });
+                }
+            }
+        }
+
+        async function calculateGPA() {
+            const subjectContainers = document.getElementsByClassName("subject-container");
+            const courses = [];
+            let allGradesSelected = true;
+
+            for (let container of subjectContainers) {
+                const gradeSelect = container.querySelector(".grade-select");
+                const label = container.querySelector("label");
+                const grade = gradeSelect.value;
+                const credits = parseFloat(label.getAttribute("data-credits"));
+
+                if (grade === "select") {
+                    allGradesSelected = false;
+                } else if (grade !== "RA" && grade !== "W" && credits > 0) {
+                    courses.push({
+                        grade: grade,
+                        credits: credits
+                    });
+                }
+            }
+
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = "";
+
+            if (!allGradesSelected) {
+                resultDiv.innerHTML = '<span class="warning">Please select grades for all subjects!</span>';
+                return;
+            }
+
+            if (courses.length === 0) {
+                resultDiv.textContent = "No valid grades selected for calculation.";
+                return;
+            }
+
+            try {
+                const response = await fetch("http://127.0.0.1:5000/calculate-gpa", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ courses: courses })
+                });
+
+                if (!response.ok) {
+                    throw new Error("API request failed: " + response.status);
+                }
+
+                const data = await response.json();
+                resultDiv.textContent = `Your GPA: ${data.gpa}`;
+            } catch (error) {
+                resultDiv.textContent = "Error calculating GPA. Is the API running?";
+                console.error(error);
+            }
+        }
+
+        function resetAll() {
+            document.getElementById("regulation").value = "select";
+            document.getElementById("degree").value = "select";
+            document.getElementById("department").value = "select";
+            document.getElementById("semester").value = "select";
+            document.getElementById("subjects-container").innerHTML = "";
+            document.getElementById("result").innerHTML = "";
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="logo"></div>
+        <div class="header">
+            <div class="college-name">SRM Valliammai Engineering College</div>
+            <div class="calculator-title">GPA Calculator</div>
+        </div>
+        
+        <div class="form-section">
+            <label class="select-label">Regulation</label>
+            <select id="regulation" onchange="updateSubjects()">
+                <option value="select">SELECT REGULATION</option>
+                <option value="r2019">R2019</option>
+                <option value="r2023">R2023</option>
+            </select>
+
+            <label class="select-label">Degree</label>
+            <select id="degree" onchange="updateDepartment()">
+                <option value="select">SELECT DEGREE</option>
+                <option value="be">BE</option>
+                <option value="btech">B.Tech</option>
+                <option value="me">ME</option>
+                <option value="mtech">M.Tech</option>
+                <option value="mba">MBA</option>
+                <option value="mca">MCA</option>
+            </select>
+
+            <label class="select-label">Department</label>
+            <select id="department" onchange="updateSubjects()">
+                <option value="select">SELECT DEPARTMENT</option>
+            </select>
+
+            <label class="select-label">Semester</label>
+            <select id="semester" onchange="updateSubjects()">
+                <option value="select">SELECT SEMESTER</option>
+            </select>
+        </div>
+        <div id="subjects-container"></div>
+        <button class="calculate-button" onclick="calculateGPA()">Calculate GPA</button>
+        <button class="reset-button" onclick="resetAll()">Reset All</button>
+        <div id="result" style="text-align: center; margin-top: 20px; font-size: 1.2rem; color: #FFFFFF;"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,6 @@
+[build]
+  publish = "public"  # Make sure Netlify deploys from the 'public' folder
+  functions = "netlify/functions"
+
+[functions]
+  directory = "netlify/functions"
