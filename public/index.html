@@ -529,7 +529,7 @@
             }
 
             try {
-                const response = await fetch('https://gpa-calculator-bpgj.onrender.com', {
+                const response = await fetch("https://gpa-calculator-bpgj.onrender.com/calculate-gpa", {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ courses: courses })
