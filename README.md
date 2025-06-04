@@ -1,5 +1,8 @@
 GPA Calculator 
 
+Note:
+  The credits and subjects mentioned are based on SRM VALLIAMMAI ENGINEERING COLLEGE (Kattankulathur Campus) !
+  
 Overview:
   The GPA Calculator is a web-based tool designed to help students calculate their Grade Point Average (GPA) based on their course grades and credit hours. Hosted at https://gpa-vec-cys27.netlify.app/, this project provides an intuitive and accessible interface for students to compute and track their academic performance efficiently.
 
