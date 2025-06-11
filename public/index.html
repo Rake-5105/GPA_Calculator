@@ -843,7 +843,7 @@
                             {code: "GE3233", name: "ENGINEERING GRAPHICS AND DESIGN", credits: 3},
                             {code: "GE3221", name: "ENGINEERING SCIENCES LABORATORY", credits: 2},
                             {code: "GE3232", name: "PROBLEM SOLVING AND PYTHON PROGRAMMING LABORATORY", credits: 2},
-                            {code: "GE3251", name: "NSS / YRC / NSO / CLUB ACTIVITIES", credits: 1}
+                            {code: "GE3251", name: "NSS / YRC / NSO / CLUB ACTIVITIES", credits: 0}
                         ];
                         break;
                     case "III":
@@ -989,6 +989,94 @@
                     });
                 }
             }
+            else if (regulation === "r2023" && department === "eee" && degree === "be") {
+                let subjects;
+                switch(semester) {
+                    case "I":
+                        subjects = [
+                            {code: "EN3111", name: "PROFESSIONAL ENGLISH - I", credits: 3},
+                            {code: "MA3122", name: "MATRICES AND CALCULUS", credits: 4},
+                            {code: "PH3123", name: "ENGINEERING PHYSICS", credits: 3},
+                            {code: "CH3124", name: "ENGINEERING CHEMISTRY", credits: 3},
+                            {code: "GE3132", name: "BASIC ELECTRICAL AND INSTRUMENTATION ENGINEERING", credits: 3},
+                            {code: "GE3111", name: "HERITAGE OF TAMILS", credits: 1},
+                            {code: "EN3119", name: "ENGLISH LANGUAGE LEARNING LABORATORY", credits: 1},
+                            {code: "GE3121", name: "PHYSICS AND CHEMISTRY LABORATORY", credits: 2},
+                            {code: "GE3134", name: "ENGINEERING PRACTICES LABORATORY", credits: 2}
+                        ];
+                        break;
+                    case "II":
+                        subjects = [
+                            {code: "EN3211", name: "PROFESSIONAL ENGLISH - II", credits: 3},
+                            {code: "MA3222", name: "STATISTICS AND NUMERICAL METHODS", credits: 4},
+                            {code: "PH3223", name: "PHYSICS FOR ELECTRONICS ENGINEERING", credits: 3},
+                            {code: "CH3223", name: "CHEMISTRY OF ELECTRONIC MATERIALS", credits: 3},
+                            {code: "GE3231", name: "PROBLEM SOLVING AND PYTHON PROGRAMMING", credits: 3},
+                            {code: "GE3211", name: "TAMILS AND TECHNOLOGY", credits: 1},
+                            {code: "GE3233", name: "ENGINEERING GRAPHICS AND DESIGN", credits: 3},
+                            {code: "GE3221", name: "ENGINEERING SCIENCES LABORATORY", credits: 2},
+                            {code: "GE3232", name: "PROBLEM SOLVING AND PYTHON PROGRAMMING LABORATORY", credits: 2},
+                            {code: "GE3251", name: "NSS / YRC / NSO / CLUB ACTIVITIES", credits: 0}
+                        ];
+                        break;
+                    case "III":
+                        subjects = [
+                            {code: "MA3321", name: "TRANSFORMS AND PARTIAL DIFFERENTIAL EQUATIONS", credits: 3},
+                            {code: "EC3365", name: "ELECTROMAGNETIC FIELDS", credits: 3},
+                            {code: "EE3361", name: "DIGITAL LOGIC CIRCUITS", credits: 3},
+                            {code: "EE3362", name: "ELECTRICAL MACHINES", credits: 3},
+                            {code: "EE3363", name: "ELECTRIC CIRCUIT ANALYSIS", credits: 3},
+                            {code: "EI3361", name: "ELECTRON DEVICES AND CIRCUITS", credits: 4},
+                            {code: "EE3364", name: "ELECTRICAL MACHINES LABORATORY", credits: 1.5},
+			    {code: "EE3365", name: "ELECTRIC CIRCUITS LABORATORY", credits: 1.5},
+                            {code: "EI3365", name: "ELECTRON DEVICES AND CIRCUITS LABORATORY", credits: 1.5}
+                        ];
+                        break;
+                    case "IV":
+                        subjects = [
+                            {code: "MA3423", name: "APPLIED MATHEMATICS FOR ELECTRONICS AND INSTRUMENTATION ENGINEERING", credits: 2},
+                            {code: "EC3462", name: "LINEAR INTEGRATED CIRCUITS", credits: 3},
+                            {code: "EI3464", name: "CONTROL SYSTEMS", credits: 3},
+                            {code: "EE3461", name: "ELECTRICAL MACHINES", credits: 3},
+                            {code: "EE3462", name: "TRANSMISSION AND DISTRIBUTION", credits: 3},
+			    {code: "EE3463", name: "MEASUREMENTS AND INTRUMENTATION", credits: 3},
+                            {code: "GE3451", name: "NCC CREDIT COURSE LEVEL – I", credits: 0},
+                            {code: "EE3464", name: "ELECTRICAL MACHINES LABORATORY", credits: 1.5},
+                            {code: "EE3465", name: "MEASUREMENTS AND INSTRUMENTATION LABORATORY", credits: 1.5},
+                            {code: "EI3469", name: "CONTROL SYSTEMS LABORATORY", credits: 1.5}
+                        ];
+                        break;
+                }
+
+                if (subjects) {
+                    subjects.forEach(subject => {
+                        let div = document.createElement("div");
+                        div.classList.add("subject-container");
+                        
+                        let label = document.createElement("label");
+                        label.textContent = `${subject.code}-${subject.name}`;
+                        label.setAttribute('data-credits', subject.credits);
+                        
+                        let gradeSelect = document.createElement("select");
+                        gradeSelect.classList.add("grade-select");
+                        gradeSelect.innerHTML = `
+                            <option value="select">SELECT</option>
+                            <option value="O">O</option>
+                            <option value="A+">A+</option>
+                            <option value="A">A</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="RA">RA</option>
+                            <option value="W">W</option>
+                        `;
+                        
+                        div.appendChild(label);
+                        div.appendChild(gradeSelect);
+                        subjectsContainer.appendChild(div);
+                    });
+                }
+            }    
             else if (regulation === "r2023" && department === "cse" && degree === "be") {
                 let subjects;
                 switch(semester) {
