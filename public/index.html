@@ -326,7 +326,6 @@
                         ];
                         break;
                     case "III":
-                        Astrocyticus
                         subjects = [
                             {code: "1918302", name: "DISCRETE MATHEMATICS", credits: 4},
                             {code: "1904301", name: "PROGRAMMING & DATA STRUCTURES IN C", credits: 3},
@@ -1022,7 +1021,7 @@
                             {code: "1903604", name: "WATER SUPPLY AND WASTE WATER ENGINEERING", credits: 3},
                             {code: "19XXXXX", name: "PROFESSIONAL ELECTIVE-III", credits: 3},
                             {code: "1903610", name: "WATER AND WASTE WATER ANALYSIS LABORATORY", credits: 2},
-                            {code: "1903611", name: "MINI PROJECT", credits: 2},
+                            {code: "1903611", name: "MINI PROJECT", credits: 2}
                         ];
                         break;
                     case "VII":
@@ -1044,6 +1043,266 @@
                             {code: "1903809", name: "PROJECT WORK – PHASE II", credits: 6}
                         ];
                         break;
+                }
+
+                if (subjects) {
+                    subjects.forEach(subject => {
+                        let div = document.createElement("div");
+                        div.classList.add("subject-container");
+                        
+                        let label = document.createElement("label");
+                        label.textContent = `${subject.code}-${subject.name}`;
+                        label.setAttribute('data-credits', subject.credits);
+                        
+                        let gradeSelect = document.createElement("select");
+                        gradeSelect.classList.add("grade-select");
+                        gradeSelect.innerHTML = `
+                            <option value="select">SELECT</option>
+                            <option value="O">O</option>
+                            <option value="A+">A+</option>
+                            <option value="A">A</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="RA">RA</option>
+                            <option value="W">W</option>
+                        `;
+                        
+                        div.appendChild(label);
+                        div.appendChild(gradeSelect);
+                        subjectsContainer.appendChild(div);
+                    });
+                }
+            }
+	    else if (regulation === "r2019" && department === "eie" && degree === "be") {
+                let subjects;
+                switch(semester) {
+                    case "I":
+                        subjects = [
+                            {code: "1919101", name: "COMMUNICATIVE ENGLISH", credits: 3},
+                            {code: "1918102", name: "ENGINEERING MATHEMATICS-I", credits: 4},
+                            {code: "1920103", name: "ENGINEERING PHYSICS", credits: 3},
+                            {code: "1921104", name: "ENGINEERING CHEMISTRY", credits: 3},
+			    {code: "1901005", name: "PROBLEM SOLVING AND PYTHON PROGRAMMING", credits: 3},
+			    {code: "1901008", name: "BASIC CIVIL AND MECHANICAL ENGINEERING", credits: 3},         
+                            
+                            {code: "1901108", name: "PHYSICS AND CHEMISTRY LABORATORY", credits: 2},
+                            {code: "1901009", name: "PROBLEM SOLVING AND PYTHON PROGRAMMING LABORATORY", credits: 2}
+                        ];
+                        break;
+                    case "II":
+                        subjects = [
+                            {code: "1919201", name: "TECHNICAL ENGLISH", credits: 3},
+                            {code: "1918202", name: "ENGINEERING MATHEMATICS - II", credits: 4},
+                            {code: "1920203", name: "PHYSICS FOR ELECTRONICS ENGINEERING", credits: 3},
+                            {code: "1921203", name: "ENVIRONMENTAL SCIENCE AND ENGINEERING", credits: 3},
+                            {code: "1901006", name: "PROGRAMMING IN C", credits: 3},
+                            {code: "1901007", name: "ENGINEERING GRAPHICS", credits: 4},
+			    {code: "1901010", name: "C PROGRAMMING LABORATORY", credits: 2},
+                            {code: "1901208", name: "ENGINEERING PRACTICES LABORATORY", credits: 2},
+                            {code: "1901209", name: "APPLIED PHYSICS AND ENVIRONMENTAL CHEMISTRY LABORATORY", credits: 2},
+                            {code: "1901200", name: "NSS/NCC/YRC/NSO", credits: 1}
+                        ];
+                        break;
+                    case "III":
+                        subjects = [
+                            {code: "1918301", name: "TRANSFORMS AND PARTIAL DIFFERENTIAL EQUATIONS", credits: 4},
+                            {code: "1907301", name: "ELECTRON DEVICES AND CIRCUITS", credits: 3},
+                            {code: "1909307", name: "APPLIED FLUID DYNAMICS AND THERMODYNAMICS", credits: 3},
+                            {code: "1907302", name: "ELECTRICAL AND ELECTRONIC INSTRUMENTS", credits: 3},
+                            {code: "1907001", name: "TRANSDUCERS ENGINEERING", credits: 3},
+                            {code: "1905305", name: "CIRCUIT THEORY", credits: 3},
+                            {code: "1907304", name: "MEASUREMENTS AND TRANSDUCERS LABORATORY", credits: 2},
+			    {code: "1907305", name: "CIRCUITS AND DEVICES LABORATORY", credits: 2}
+                        ];
+                        break;
+                    case "IV":
+                        subjects = [
+                            {code: "1918401", name: "NUMBERICAL METHODS", credits: 4},
+                            {code: "1907401", name: "ELECTRICAL MACHINES", credits: 3},
+                            {code: "1907402", name: "DIGITAL LOGIC CIRCUITS", credits: 3},
+                            {code: "1907403", name: "LINEAR INTEGRATED CIRCUITS AND APPLICATIONS", credits: 3},
+                            {code: "1907404", name: "INDUSTRIAL INSTRUMENTATION - I", credits: 3},
+                            {code: "1915001", name: "PROFESSIONAL ETHICS", credits: 3},
+                            {code: "1907405", name: "ELECTRICAL MACHINES LABORATORY", credits: 2},
+                            {code: "1903406", name: "LINEAR AND DIGITAL INTEGRATED CIRCUITS LABORATORY", credits: 2}
+                        ];
+                        break;
+                    case "V":
+                        subjects = [
+                            {code: "1907501", name: "INDUSTRIAL INSTRUMENTATION - II", credits: 3},
+                            {code: "1905504", name: "CONTROL SYSTEMS", credits: 3},
+                            {code: "1906004", name: "COMMUNICATION ENGINEERING", credits: 3},
+                            {code: "1905502", name: "MICROPROCESSORS AND MICROCONTROLLERS", credits: 3},
+                            {code: "1907502", name: "DISCRETE TIME SYSTEMS AND SIGNAL PROCESSING", credits: 3},
+                            {code: "19XXXXX", name: "OPEN ELECTIVE-I", credits: 3},
+                            {code: "1907505", name: "INDUSTRIAL INSTRUMENTATION LABORATORY", credits: 2},
+                            {code: "1907506", name: "MICROPROCESSORS AND MICROCONTROLLERS LABORATORY", credits: 2},
+			];
+                        break;
+                    case "VI":
+                        subjects = [
+                            {code: "1907601", name: "LOGIC AND DISTRIBUTED CONTROL SYSTEM", credits: 3},
+                            {code: "1904007", name: "DATA STRUCTURES", credits: 3},
+                            {code: "1907602", name: "PROCESS CONTROL", credits: 3},
+                            {code: "19XXXXX", name: "PROFESSIONAL ELECTIVE - I", credits: 3},
+                            {code: "19XXXXX", name: "PROFESSIONAL ELECTIVE - II", credits: 3},
+                            {code: "1904613", name: "DATA STRUCTURES LABORATORY", credits: 2},
+			    {code: "1907609", name: "PROCESS CONTROL LABORATORY", credits: 2},
+			    {code: "1919002", name: "PROFESSIONAL COMMUNICATION", credits: 1},
+                            {code: "1907610", name: "MINI PROJECT", credits: 2}
+                        ];
+                        break;
+                    case "VII":
+                        subjects = [
+                            {code: "1907701", name: "COMPUTER CONTROL OF PROCESSES", credits: 3},
+                            {code: "1907702", name: "INDUSTRIAL DATA NETWORK", credits: 3},
+                            {code: "19XXXXX", name: "PROFESSIONAL ELECTIVE - III", credits: 3},
+                            {code: "19XXXXX", name: "PROFESSIONAL ELECTIVE - IV", credits: 3},
+			    {code: "19XXXXX", name: "OPEN ELECTIVE - II", credits: 3},
+                            {code: "1907709", name: "INDUSTRIAL AUTOMATION LABORATORY", credits: 2},
+			    {code: "1907710", name: "INSTRUMENTATION SYSTEM DESIGN LABORATORY", credits: 2},
+                            {code: "1907611", name: "INTERNSHIP", credits: 1},
+                            {code: "1907711", name: "PROJECT WORK - PHASE I", credits: 2}
+                        ];
+                        break;
+                    case "VIII":
+                        subjects = [
+                            {code: "1903XXX", name: "PROFESSIONAL ELECTIVE - V", credits: 3},
+                            {code: "1903XXX", name: "PROFESSIONAL ELECTIVE - VI", credits: 3},
+                            {code: "1903809", name: "PROJECT WORK – PHASE II", credits: 6}
+                        ];
+                        break;
+                }
+
+                if (subjects) {
+                    subjects.forEach(subject => {
+                        let div = document.createElement("div");
+                        div.classList.add("subject-container");
+                        
+                        let label = document.createElement("label");
+                        label.textContent = `${subject.code}-${subject.name}`;
+                        label.setAttribute('data-credits', subject.credits);
+                        
+                        let gradeSelect = document.createElement("select");
+                        gradeSelect.classList.add("grade-select");
+                        gradeSelect.innerHTML = `
+                            <option value="select">SELECT</option>
+                            <option value="O">O</option>
+                            <option value="A+">A+</option>
+                            <option value="A">A</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="RA">RA</option>
+                            <option value="W">W</option>
+                        `;
+                        
+                        div.appendChild(label);
+                        div.appendChild(gradeSelect);
+                        subjectsContainer.appendChild(div);
+                    });
+                }
+            }
+	    else if (regulation === "r2023" && department === "eie" && degree === "be") {
+                let subjects;
+                switch(semester) {
+                    case "I":
+                        subjects = [
+                            {code: "EN3111", name: "PROFESSIONAL ENGLISH - I", credits: 3},
+                            {code: "MA3122", name: "MATRICES AND CALCULUS", credits: 4},
+                            {code: "PH3123", name: "ENGINEERING PHYSICS", credits: 3},
+                            {code: "CH3124", name: "ENGINEERING CHEMISTRY", credits: 3},
+                            {code: "GE3133", name: "BASIC CIVIL AND MECHANICAL ENGINEERING", credits: 3},
+                            {code: "GE3111", name: "HERITAGE OF TAMILS", credits: 1},
+                            {code: "EN3119", name: "ENGLISH LANGUAGE LEARNING LABORATORY", credits: 1},
+                            {code: "GE3121", name: "PHYSICS AND CHEMISTRY LABORATORY", credits: 2},
+                            {code: "GE3134", name: "ENGINEERING PRACTICES LABORATORY", credits: 2}
+                        ];
+                        break;
+                    case "II":
+                        subjects = [
+                            {code: "EN3211", name: "PROFESSIONAL ENGLISH - II", credits: 3},
+                            {code: "MA3222", name: "STATISTICS AND NUMERICAL METHODS", credits: 4},
+                            {code: "PH3223", name: "PHYSICS FOR ELECTRONICS ENGINEERING", credits: 3},
+                            {code: "CH3221", name: "CHEMISTRY OF ELECTRONIC MATERIALS", credits: 3},
+                            {code: "GE3231", name: "PROBLEM SOLVING AND PYTHON PROGRAMMING", credits: 3},
+                            {code: "GE3211", name: "TAMILS AND TECHNOLOGY", credits: 1},
+                            {code: "GE3233", name: "ENGINEERING GRAPHICS AND DESIGN", credits: 3},
+                            {code: "GE3221", name: "ENGINEERING SCIENCES LABORATORY", credits: 2},
+                            {code: "GE3232", name: "PROBLEM SOLVING AND PYTHON PROGRAMMING LABORATORY", credits: 2},
+                        ];
+                        break;
+                    case "III":
+                        subjects = [
+                            {code: "MA3321", name: "TRANSFORMS AND PARTIAL DIFFERENTIAL EQUATIONS", credits: 3},
+                            {code: "EE3363", name: "ELECTRIC CIRCUIT ANALYSIS", credits: 3},
+                            {code: "EI3361", name: "ELECTRON DEVICES AND CIRCUITS", credits: 3},
+                            {code: "EI3362", name: "ELECTRICAL AND ELECTRONIC INSTRUMENTS", credits: 3},
+                            {code: "EI3363", name: "TRANSDUCERS ENGINEERING", credits: 3},
+                            {code: "ME3366", name: "APPLIED FLUID DYNAMICS AND THERMODYNAMICS", credits: 3},
+                            {code: "EI3364", name: "MEASUREMENTS AND TRANSDUCERS LABORATORY", credits: 1.5},
+			    {code: "EE3365", name: "ELECTRIC CIRCUITS LABORATORY", credits: 1.5},
+                            {code: "EI3365", name: "ELECTRON DEVICES AND CIRCUITS LABORATORY", credits: 1.5}
+                        ];
+                        break;
+                    case "IV":
+                        subjects = [
+                            {code: "MA3423", name: "APPLIED MATHEMATICS FOR ELECTRICAL AND INSTRUMENTATION ENGINEERING", credits: 2},
+                            {code: "EI3461", name: "ELECTRICAL MACHINES", credits: 3},
+                            {code: "EE3461", name: "DIGITAL LOGIC CIRCUITS", credits: 3},
+                            {code: "EI3463", name: "ELECTRONICS FOR ANALOG SIGNAL PROCESSING", credits: 3},
+                            {code: "EI3464", name: "CONTROL SYSTEMS", credits: 3},
+			    {code: "EI3465", name: "MICROPROCESSORS AND MICROCONTROLLERS", credits: 3},
+                            {code: "EI3466", name: "ELECTRICAL MACHINES AND CONTROL SYSTEMS LABORATORY", credits: 2},
+                            {code: "EI3467", name: "LINEAR AND DIGITAL INTEGRATED CIRCUITS LABORATORY", credits: 1.5},
+                            {code: "EI3468", name: "MICROPROCESSORS AND MICROCONTROLLERS LABORATORY", credits: 1.5}
+                        ];
+                        break;
+                    case "V":
+                        subjects = [
+                            {code: "EI3561", name: "INDUSTRIAL INSTRUMENTATION", credits: 3},
+                            {code: "EC3568", name: "DISCRETE TIME AND SIGNAL PROCESSING", credits: 3},
+                            {code: "EI3562", name: "PROCESS CONTROL", credits: 4},
+                            {code: "CE35XX", name: "ELECTRONICS FOR ANALOG SIGNAL PROCESSING", credits: 2},
+                            {code: "PEIXXX", name: "PROFESSIONAL ELECTIVE - I", credits: 3},
+			    {code: "PEIXXX", name: "PROFESSIONAL ELECTIVE - II", credits: 3},
+                            {code: "EI3563", name: "INDUSTRIAL AUTOMATION  SYSTEMS", credits: 4},
+                            {code: "EI3564", name: "INDUSTRIAL INSTRUMENTATION LABORATORY", credits: 1.5},
+                            {code: "EI3565", name: "PROCESS CONTROL LABORATORY", credits: 1.5}
+                        ];
+                        break;
+                    case "VI":
+                        subjects = [
+                            {code: "EC3666", name: "IOT CONCEPTS AND  APPLICATIONS", credits: 3},
+                            {code: "CS3665", name: "DATA STRUCTURES", credits: 3},
+                            {code: "PEIXXX", name: "PROFESSIONAL ELECTIVE - III", credits: 3},
+                            {code: "PEIXXX", name: "PROFESSIONAL ELECTIVE - IV", credits: 3},
+                            {code: "MAN1XX", name: "ELECTIVE MANAGEMENT", credits: 2},
+			    {code: "EI3665", name: "EMBEDDED SYSTEMS", credits: 4},
+                            {code: "CS3666", name: "DATA STRUCTURES LABORATORY", credits: 1.5},
+                            {code: "EN3649", name: "PROFESSIONAL COMMUNICATION LABORATORY", credits: 1},
+                            {code: "EI3641", name: "MINI PROJECT", credits: 2}
+                        ];
+                        break;
+                    case "VII":
+                        subjects = [
+                            {code: "EI3761", name: "APPLIED MACHINE LEARNING", credits: 3},
+                            {code: "EI3762", name: "INDUSTRIAL DATA NETWORKS", credits: 3},
+                            {code: "PEIXXX", name: "PROFESSIONAL ELECTIVE - V", credits: 3},
+                            {code: "PEIXXX", name: "PROFESSIONAL ELECTIVE - VI", credits: 3},
+                            {code: "BA3711", name: "HUMAN VALUES AND ETHICS", credits: 2},
+			    {code: "OXXXXX", name: "OPEN ELECTIVE", credits: 3},
+                            {code: "EI3763", name: "INSTRUMENTATION SYSTEM DESIGN LABORATORY", credits: 1.5},
+                            {code: "EI3741", name: "INTERNSHIP", credits: 1},
+                            {code: "EI3764", name: "SYSTEM IDENTIFICATION, MODELING AND SIMULATION LABORATORY", credits: 1.5}
+                        ];
+                        break;
+                    case "VIII":
+                        subjects = [
+                            {code: "EI3841", name: "PROJECT WORK", credits: 10},
+			];
+                        break;		   
                 }
 
                 if (subjects) {
