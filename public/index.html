@@ -1331,6 +1331,267 @@
                     });
                 }
             }
+	    else if (regulation === "r2019" && department === "agri" && degree === "btech") {
+                let subjects;
+                switch(semester) {
+                    case "I":
+                        subjects = [
+                            {code: "1919101", name: "COMMUNICATIVE ENGLISH", credits: 3},
+                            {code: "1918102", name: "ENGINEERING MATHEMATICS-I", credits: 4},
+                            {code: "1920103", name: "ENGINEERING PHYSICS", credits: 3},
+                            {code: "1921104", name: "ENGINEERING CHEMISTRY", credits: 3},
+			                {code: "1901005", name: "PROBLEM SOLVING AND PYTHON PROGRAMMING", credits: 3},
+			                {code: "1901107", name: "BASIC ELECTRICAL AND ELECTRONICS FOR AGRICULTURE ENGINEERING", credits: 3},         
+                            {code: "1901108", name: "PHYSICS AND CHEMISTRY LABORATORY", credits: 2},
+                            {code: "1901009", name: "PROBLEM SOLVING AND PYTHON PROGRAMMING LABORATORY", credits: 2},
+                        ];
+                        break;
+                    case "II":
+                        subjects = [
+                            {code: "1919201", name: "TECHNICAL ENGLISH", credits: 3},
+                            {code: "1918202", name: "ENGINEERING MATHEMATICS - II", credits: 4},
+                            {code: "1920205", name: "PHYSICS FOR AGRICULTURE ENGINEERING", credits: 3},
+                            {code: "1921203", name: "ENVIRONMENTAL SCIENCE AND ENGINEERING", credits: 3},
+			                {code: "1901006", name: "PROGRAMMING IN C", credits: 3},
+                            {code: "1901007", name: "ENGINEERING GRAPHICS", credits: 4},
+                            {code: "1901010", name: "C PROGRAMMING LABORATORY", credits: 2},
+                            {code: "1901208", name: "ENGINEERING PRACTICES LABORATORY", credits: 2},
+                            {code: "1901209", name: "APPLIED PHYSICS AND ENVIRONMENTAL CHEMISTRY LABORATORY", credits: 2},
+                            {code: "1901200", name: "NSS/NCC/YRC/NSO", credits: 1}
+                        ];
+                        break;
+                    case "III":
+                        subjects = [
+                            {code: "1918301", name: "TRANSFORMS AND PARTIAL DIFFERENTIAL EQUATIONS", credits: 4},
+                            {code: "1902301", name: "SOIL SCIENCE AND ENGINEERING", credits: 3},
+                            {code: "1902302", name: "FLUID MECHANICS AND HYDRAULICS", credits: 3},
+                            {code: "1909308", name: "THEORY OF MACHINES", credits: 3},
+                            {code: "1902303", name: "SURVEYING AND LEVELING", credits: 3},
+                            {code: "1905309", name: "SOLAR AND WIND ENERGY ENGINEERING", credits: 3},
+                            {code: "1902304", name: "SURVEYING AND LEVELING LABORATORY", credits: 2},
+			                {code: "1902305", name: "FLUID MECHANICS LABORATORY", credits: 1}
+                        ];
+                        break;
+                    case "IV":
+                        subjects = [
+                            {code: "1918404", name: "PROBABILITY AND STATISTICS", credits: 4},
+                            {code: "1902401", name: "UNIT OPERATIONS IN AGRICULTURAL PROCESSING", credits: 3},
+                            {code: "1909407", name: "FARM TRACTORS", credits: 3},
+                            {code: "1902402", name: "HYDROLOGY AND WATER RESOURCES ENGINEERINGS", credits: 3},
+                            {code: "1902403", name: "STRENGTH OF MATERIALS", credits: 3},
+                            {code: "1902404", name: "PRINCIPLES AND PRACTICES OF CROP PRODUCTION", credits: 3},
+                            {code: "1902405", name: "SOIL SCIENCE LABORATORY", credits: 1},
+                            {code: "1902406", name: "STRENGTH OF MATERIALS LABORATORY", credits: 2},
+                            {code: "1902407", name: "CROP HUSBANDRY LABORATORY", credits: 2}
+                        ];
+                        break;
+                    case "V":
+                        subjects = [
+                            {code: "1902501", name: "IRRIGATION AND DRAINAGE ENGINEERING", credits: 3},
+                            {code: "1902502", name: "FARM MACHINERY AND EQUIPMENT", credits: 3},
+                            {code: "1909515", name: "DESIGN OF BASIC MACHINE ELEMENTS ", credits: 3},
+                            {code: "1902503", name: "POST-HARVEST TECHNOLOGY", credits: 3},
+                            {code: "19XXXX", name: "PROFESSIONAL ELECTIVE – I", credits: 3},
+                            {code: "19XXXX", name: "OPEN ELECTIVE - I", credits: 3},
+			                {code: "1902508", name: "OPERATION AND MAINTENANCE OF FARM MACHINERY LAB", credits: 2},
+                            {code: "1902509", name: "POST HARVEST ENGINEERING LABORATORY", credits: 2},
+                            {code: "1902510", name: "IRRIGATION FIELD LABORATORY", credits: 2},
+			                {code: "1919002", name: "PROFESSIONAL COMMUNICATION", credits: 1},
+		                ];
+                        break;
+                    case "VI":
+                        subjects = [
+                            {code: "1902601", name: "GROUNDWATER AND WELL ENGINEERING", credits: 3},
+                            {code: "1902602", name: "FOOD AND DAIRY ENGINEERING", credits: 3},
+                            {code: "1902603", name: "PROTECTED CULTIVATION", credits: 3},
+                            {code: "19XXXXX", name: "PROFESSIONAL ELECTIVE - II", credits: 3},
+                            {code: "19XXXXX", name: "PROFESSIONAL ELECTIVE - III", credits: 3},
+			                {code: "1902610", name: "CAD FOR AGRICULTURAL LABORATORY", credits: 2},
+			                {code: "1902611", name: "FOOD PROCESS ENGINEERING LABORATORY", credits: 2},
+                            {code: "1902612", name: "MINI PROJECT", credits: 2}
+                        ];
+                        break;
+                    case "VII":
+                        subjects = [
+                            {code: "1902701", name: "SOIL AND WATER CONSERVATION ENGINEERING", credits: 3},
+                            {code: "1902702", name: "REMOTE SENSING AND GEOGRAPHICAL INFORMATION SYSTEM FOR AGRICULTURE ENGINEERS", credits: 3},
+                            {code: "1902703", name: "BIO-ENERGY RESOURCE TECHNOLOGY", credits: 3},
+                            {code: "19XXXXX", name: "PROFESSIONAL ELECTIVE - IV", credits: 3},
+			                {code: "19XXXXX", name: "OPEN ELECTIVE - II", credits: 3},
+                            {code: "1902707", name: "DESIGN AND DRAWING OF FARM AND IRRIGATION STRUCTURES", credits: 2},
+			                {code: "1902708", name: "INTERNSHIP", credits: 1},
+                            {code: "1902709", name: "PROJECT WORK", credits: 2},
+                        ];
+                        break;
+                    case "VIII":
+                        subjects = [
+                            {code: "19XXXX", name: "PROFESSIONAL ELECTIVE - V", credits: 3},
+                            {code: "19XXXX", name: "PROFESSIONAL ELECTIVE - VI", credits: 3},
+                            {code: "1902808", name: "PROJECT WORK – PHASE II", credits: 6}
+                        ];
+                        break;
+                }
+
+                if (subjects) {
+                    subjects.forEach(subject => {
+                        let div = document.createElement("div");
+                        div.classList.add("subject-container");
+                        
+                        let label = document.createElement("label");
+                        label.textContent = `${subject.code}-${subject.name}`;
+                        label.setAttribute('data-credits', subject.credits);
+                        
+                        let gradeSelect = document.createElement("select");
+                        gradeSelect.classList.add("grade-select");
+                        gradeSelect.innerHTML = `
+                            <option value="select">SELECT</option>
+                            <option value="O">O</option>
+                            <option value="A+">A+</option>
+                            <option value="A">A</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="RA">RA</option>
+                            <option value="W">W</option>
+                        `;
+                        
+                        div.appendChild(label);
+                        div.appendChild(gradeSelect);
+                        subjectsContainer.appendChild(div);
+                    });
+                }
+            }
+	    else if (regulation === "r2023" && department === "agri" && degree === "btech") {
+                let subjects;
+                switch(semester) {
+                    case "I":
+                        subjects = [
+                            {code: "EN3111", name: "PROFESSIONAL ENGLISH - I", credits: 3},
+                            {code: "MA3122", name: "MATRICES AND CALCULUS", credits: 4},
+                            {code: "PH3123", name: "ENGINEERING PHYSICS", credits: 3},
+                            {code: "CH3124", name: "ENGINEERING CHEMISTRY", credits: 3},
+                            {code: "GE3131", name: "BASIC ELECTRICAL AND ELECTRONICS ENGINEERING", credits: 3},
+                            {code: "GE3111", name: "HERITAGE OF TAMILS", credits: 1},
+                            {code: "EN3119", name: "ENGLISH LANGUAGE LEARNING LABORATORY", credits: 1},
+                            {code: "GE3121", name: "PHYSICS AND CHEMISTRY LABORATORY", credits: 2},
+                            {code: "GE3134", name: "ENGINEERING PRACTICES LABORATORY", credits: 2}
+                        ];
+                        break;
+                    case "II":
+                        subjects = [
+                            {code: "EN3211", name: "PROFESSIONAL ENGLISH - II", credits: 3},
+                            {code: "MA3222", name: "STATISTICS AND NUMERICAL METHODS", credits: 4},
+                            {code: "PH3224", name: "PHYSICS FOR AGRICULTURAL ENGINEERING", credits: 3},
+                            {code: "CH3224", name: "CHEMISTRY FOR AGRICULTURAL ENGINEERING", credits: 3},
+                            {code: "GE3231", name: "PROBLEM SOLVING AND PYTHON PROGRAMMING", credits: 3},
+                            {code: "GE3211", name: "TAMILS AND TECHNOLOGY", credits: 1},
+                            {code: "GE3233", name: "ENGINEERING GRAPHICS AND DESIGN", credits: 3},
+                            {code: "GE3221", name: "ENGINEERING SCIENCES LABORATORY", credits: 2},
+                            {code: "GE3232", name: "PROBLEM SOLVING AND PYTHON PROGRAMMING LABORATORY", credits: 2},
+                        ];
+                        break;
+                    case "III":
+                        subjects = [
+                            {code: "MA3321", name: "TRANSFORMS AND PARTIAL DIFFERENTIAL EQUATIONS", credits: 3},
+                            {code: "AG3361", name: "FLUID MECHANICS AND OPEN CHANNEL", credits: 3},
+                            {code: "AG3362", name: "HYDROLOGY AND WATER  RESOURCES ENGINEERING", credits: 3},
+                            {code: "AG3363", name: "SOIL SCIENCE AND ENGINEERING", credits: 3},
+                            {code: "AG3364", name: "THEORY OF MACHINES FOR  AGRICULTURAL ENGINEERING", credits: 3},
+                            {code: "CE3363", name: "SURVEYING AND LEVELLING", credits: 3},
+                            {code: "AG3365", name: "FLUID MECHANICS LABORATORY", credits: 1.5},
+			                {code: "AG3366", name: "SOIL SCIENCE LABORATORY", credits: 1.5},
+			                {code: "CE3366", name: "SURVEYING AND LEVELLING LABORATORY", credits: 1.5},
+                        ];
+                        break;
+                    case "IV":
+                        subjects = [
+                            {code: "MA3426", name: "APPLIED MATHEMATICS FOR AGRICULTURAL ENGINEERING", credits: 2},
+                            {code: "AG3461", name: "TRACTORS AND FARM ENGINES", credits: 3},
+                            {code: "AG3462", name: "IRRIGATION AND DRAINAGE ENGINEERING", credits: 3},
+                            {code: "AG3463", name: "PRINCIPLES AND PRACTICES OF CROP PRODUCTION", credits: 3},
+                            {code: "AG3431", name: "STRENGTH OF MATERIALS FOR AGRICULTURAL ENGINEERING", credits: 3},
+			                {code: "AG3432", name: "THERMODYNAMICS FOR  AGRICULTURAL ENGINEERING", credits: 3},
+                            {code: "AG3464", name: "ACROP HUSBANDRY LABORATORY", credits: 2},
+			                {code: "AG3465", name: "IRRIGATION FIELD LABORATORY", credits: 1.5},
+                            {code: "AG3433", name: "STRENGTH OF MATERIALS LABORATORY", credits: 1.5},
+                        ];
+                        break;
+                    case "V":
+                        subjects = [
+                            {code: "AG3561", name: "AGRICULTURAL STRUCTURES", credits: 3},
+                            {code: "AG3562", name: "FARM MACHINERY AND EQUIPMENT", credits: 3},
+                            {code: "AG3563", name: "POST-HARVEST TECHNOLOGY", credits: 3},
+                            {code: "AG3564", name: "UNIT OPERATIONS IN AGRICULTURAL  PROCESSING ", credits: 3},
+                            {code: "PAGXXX", name: "PROFESSIONAL ELECTIVE - I", credits: 3},
+			                {code: "PAGXXX", name: "PROFESSIONAL ELECTIVE - II", credits: 3},
+			                {code: "CE3531", name: "ENVIRONMENTAL STUDIES", credits: 2},
+                            {code: "AG3565", name: "DESIGN AND DRAWING OF FARM AND IRRIGATION STRUCTURES", credits: 1.5},
+			                {code: "AG3566", name: "TRACTORS AND FARM MACHINERY LABORATORY", credits: 1.5},
+                            {code: "AG3567", name: "POST-HARVEST ENGINEERING LABORATORY", credits: 1.5},
+                        ];
+                        break;	
+                    case "VI":
+                        subjects = [
+                            {code: "AG3661", name: "DESIGN OF AGRICULTURAL MACHINERY", credits: 3},
+                            {code: "AG3662", name: "BIO ENERGY RESOURCE TECHNOLOGY", credits: 3},
+                            {code: "AG3663", name: "SOIL AND WATER CONSERVATION ENGINEERING", credits: 3},
+                            {code: "PAGXXX", name: "PROFESSIONAL ELECTIVE - III", credits: 3},
+                            {code: "PAGXXX", name: "PROFESSIONAL ELECTIVE - IV", credits: 3},
+			                {code: "MAN10X", name: "MANAGEMENT ELECTIVE", credits: 2},
+                            {code: "AG3664", name: "CAD FOR AGRICULTURAL MACHINERY", credits: 1.5},
+			                {code: "EN3649", name: "PROFESSIONAL COMMUNICATIONS LABORATORY", credits: 1},
+                            {code: "AG3641", name: "MINI PROJECT", credits: 2},
+                        ];
+                        break;	
+                    case "VII":
+                        subjects = [
+                            {code: "AG3761", name: "FOOD AND DAIRY ENGINEERING", credits: 3},
+                            {code: "AG3762", name: "REMOTE SENSING AND GEOGRAPHICAL INFORMATION SYSTEM", credits: 3},
+                            {code: "PAGXXX", name: "PROFESSIONAL ELECTIVE - V", credits: 3},
+                            {code: "PAGXXX", name: "PROFESSIONAL ELECTIVE - VI", credits: 3},
+                            {code: "BA3711", name: "HUMAN VALUES AND ETHICS", credits: 2},
+			                {code: "OXXXXX", name: "OPEN ELECTIVE", credits: 3},
+                            {code: "AG3763", name: "FOOD PROCESS ENGINEERING", credits: 1.5},
+			                {code: "AG3741", name: "INTERNSHIP (2 WEEKS)", credits: 1},
+                            {code: "AG3742", name: "STUDY TOUR", credits: 1},
+                        ];
+                        break;   
+                    case "VIII":
+                        subjects = [
+                            {code: "AG3841", name: "Project Work", credits: 10},
+                        ];
+                        break;
+                }
+
+                if (subjects) {
+                    subjects.forEach(subject => {
+                        let div = document.createElement("div");
+                        div.classList.add("subject-container");
+                        
+                        let label = document.createElement("label");
+                        label.textContent = `${subject.code}-${subject.name}`;
+                        label.setAttribute('data-credits', subject.credits);
+                        
+                        let gradeSelect = document.createElement("select");
+                        gradeSelect.classList.add("grade-select");
+                        gradeSelect.innerHTML = `
+                            <option value="select">SELECT</option>
+                            <option value="O">O</option>
+                            <option value="A+">A+</option>
+                            <option value="A">A</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="RA">RA</option>
+                            <option value="W">W</option>
+                        `;
+                        
+                        div.appendChild(label);
+                        div.appendChild(gradeSelect);
+                        subjectsContainer.appendChild(div);
+                    });
+                }
+            }
 	    else if (regulation === "r2023" && department === "mde" && degree === "be") {
                 let subjects;
                 switch(semester) {
