@@ -1,11 +1,10 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS  # Add this line here
+from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)  # Add this line here, right after app is created
+CORS(app, resources={r"/calculate-gpa": {"origins": ["https://gpa-vec-cys27.netlify.app"]}})
 
 def calculate_gpa(courses):
-    # SRM Valliammai grade points
     grade_points = {
         "O": 10.0, "A+": 9.0, "A": 8.0, "B+": 7.0, "B": 6.0, "C": 5.0,
         "RA": 0.0, "W": 0.0
@@ -15,10 +14,19 @@ def calculate_gpa(courses):
     
     for course in courses:
         grade = course.get("grade", "").upper()
-        credits = float(course.get("credits", 0))
-        if grade in grade_points and credits > 0:
-            total_points += grade_points[grade] * credits
-            total_credits += credits
+        try:
+            credits = float(course.get("credits", 0))
+            
+            if credits <= 0:
+                continue
+        except (ValueError, TypeError):
+            continue
+        
+        if grade not in grade_points:
+            continue
+        
+        total_points += grade_points[grade] * credits
+        total_credits += credits
     
     if total_credits == 0:
         return 0.0
@@ -32,7 +40,12 @@ def gpa_calculator():
     
     courses = data["courses"]
     gpa = calculate_gpa(courses)
-    return jsonify({"gpa": gpa})
+    total_credits = sum(float(course.get("credits", 0)) for course in courses if course.get("grade", "").upper() in ["O", "A+", "A", "B+", "B", "C", "RA", "W"])
+    
+    return jsonify({
+        "gpa": gpa,
+        "total_credits": total_credits
+    })
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
