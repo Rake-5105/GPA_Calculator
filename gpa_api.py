@@ -104,14 +104,17 @@ def calculate_gpa(courses):
         return 0.0
     return round(total_points / total_credits, 2)
 
-@app.route('/calculate-gpa', methods=['POST','OPTIONS'])
+@app.route('/calculate-gpa', methods=['POST'])
 @rate_limit
 def gpa_calculator():
     try:
         data = request.get_json(silent=True)
         logger.info(f"Received payload: {data}")
-        if not data or "courses" not in data or not isinstance(data["courses"], list):
-            logger.error("Invalid request: missing or invalid courses")
+        if data is None:
+            logger.error("Invalid JSON: Unable to parse request body")
+            return jsonify({"error": "Invalid JSON: Unable to parse request body"}), 400
+        if "courses" not in data or not isinstance(data["courses"], list):
+            logger.error("Invalid request: 'courses' missing or not a list")
             return jsonify({"error": "Invalid request: 'courses' must be a non-empty list"}), 400
 
         courses = data["courses"]
