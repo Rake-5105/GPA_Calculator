@@ -1,10 +1,10 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import logging
+import os  # ✅ required for os.getenv
 from time import time
 from functools import wraps
-import os
-from serverless_wsgi import handle_request
+
 
 app = Flask(__name__)
 
@@ -25,7 +25,13 @@ CONFIG = {
 }
 
 # CORS setup
-CORS(app, resources={r"/*": {"origins": CONFIG["ALLOWED_ORIGINS"]}})
+CORS(
+    app,
+    origins=CONFIG["ALLOWED_ORIGINS"],
+    supports_credentials=True,
+    allow_headers=["Content-Type", "Authorization"],
+    methods=["GET", "POST", "OPTIONS"]
+)
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
