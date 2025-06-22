@@ -1,13 +1,10 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
+
+from flask import Flask, request, jsonify, make_response
 import logging
-import os  # ✅ required for os.getenv
 from time import time
 from functools import wraps
-from flask_cors import CORS
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-
+import os
+from serverless_wsgi import handle_request
 
 app = Flask(__name__)
 
@@ -15,34 +12,42 @@ app = Flask(__name__)
 CONFIG = {
     "ALLOWED_ORIGINS": [
         "https://gpa-vec-cys27.netlify.app",
-        os.getenv("DEV_ORIGIN", "http://localhost:3000")  # Allow local dev origin
+        os.getenv("DEV_ORIGIN", "http://localhost:3000")
     ],
-    "RATE_LIMIT_WINDOW": 60,  # 60 seconds
-    "RATE_LIMIT_MAX_REQUESTS": 10,  # Max 10 requests per minute per IP
-    "MAX_COURSES": 50,  # Prevent excessively large course lists
-    "MAX_CREDITS": 10.0,  # Reasonable max credits per course
+    "RATE_LIMIT_WINDOW": 60,
+    "RATE_LIMIT_MAX_REQUESTS": 10,
+    "MAX_COURSES": 50,
+    "MAX_CREDITS": 10.0,
     "GRADE_POINTS": {
         "O": 10.0, "A+": 9.0, "A": 8.0, "B+": 7.0, "B": 6.0, "C": 5.0,
         "RA": 0.0, "W": 0.0
     }
 }
 
-# CORS setup
-CORS(
-    app,
-    origins=[
-        "https://gpa-vec-cys27.netlify.app",
-        "http://localhost:3000"
-    ],
-    supports_credentials=True
-)
-
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Rate limiting variables (Note: In-memory storage may not persist in serverless environments like AWS Lambda.
-# Consider using Redis/DynamoDB or API Gateway throttling for production.)
+# Custom CORS middleware
+@app.before_request
+def handle_preflight():
+    if request.method == "OPTIONS":
+        logger.info(f"Handling OPTIONS request from {request.origin}")
+        response = make_response()
+        response.headers.add("Access-Control-Allow-Origin", "https://gpa-vec-cys27.netlify.app")
+        response.headers.add("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        response.headers.add("Access-Control-Allow-Headers", "Content-Type")
+        response.headers.add("Access-Control-Max-Age", "86400")  # Cache preflight for 24 hours
+        return response, 200
+
+@app.after_request
+def add_cors_headers(response):
+    response.headers["Access-Control-Allow-Origin"] = "https://gpa-vec-cys27.netlify.app"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+    return response
+
+# Rate limiting variables
 request_counts = {}
 
 def rate_limit(f):
@@ -51,7 +56,6 @@ def rate_limit(f):
         client_ip = request.remote_addr
         current_time = int(time())
         
-        # Clean up old timestamps
         if client_ip in request_counts:
             request_counts[client_ip] = [
                 t for t in request_counts[client_ip] if current_time - t < CONFIG["RATE_LIMIT_WINDOW"]
@@ -59,7 +63,6 @@ def rate_limit(f):
         else:
             request_counts[client_ip] = []
         
-        # Check rate limit
         if len(request_counts[client_ip]) >= CONFIG["RATE_LIMIT_MAX_REQUESTS"]:
             logger.warning(f"Rate limit exceeded for IP: {client_ip}")
             return jsonify({"error": "Too many requests. Please wait a moment."}), 429
@@ -95,15 +98,9 @@ def calculate_gpa(courses):
         return 0.0
     return round(total_points / total_credits, 2)
 
-@app.route('/calculate-gpa', methods=['POST', 'OPTIONS'])
+@app.route('/calculate-gpa', methods=['POST'])
+@rate_limit
 def gpa_calculator():
-    data = request.get_json(force=True)  # or just request.get_json()
-    # ...rest of your logic...
-    # Only handle POST requests here
-    if request.method == 'POST':
-        # ...your GPA calculation logic...
-        return jsonify({"gpa": 9.5, "total_credits": 20})
-    # Do NOT handle OPTIONS here!
     try:
         data = request.get_json()
         if not data or "courses" not in data or not isinstance(data["courses"], list):
@@ -118,7 +115,6 @@ def gpa_calculator():
             logger.warning(f"Too many courses: {len(courses)} exceeds limit {CONFIG['MAX_COURSES']}")
             return jsonify({"error": f"Maximum {CONFIG['MAX_COURSES']} courses allowed"}), 400
 
-        # Check for unselected or invalid grades
         for i, course in enumerate(courses):
             grade = course.get("grade", "").strip().upper()
             if not grade or grade == "SELECT":
@@ -153,7 +149,7 @@ def gpa_calculator():
         return jsonify({"error": "Internal server error. Please try again later."}), 500
 
 @app.route('/warmup', methods=['GET'])
-@rate_limit  # Apply rate limiting to prevent abuse
+@rate_limit
 def warmup():
     logger.info("API warmup request received")
     return jsonify({"message": "API is awake!"})
@@ -161,6 +157,6 @@ def warmup():
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
 
-# Serverless handler for platforms like AWS Lambda
+# Serverless handler
 def handler(event, context):
     return handle_request(app, event, context)
