@@ -25,7 +25,7 @@ CONFIG = {
 }
 
 # CORS setup
-ORS(
+CORS(
     app,
     origins=[
         "https://gpa-vec-cys27.netlify.app",
