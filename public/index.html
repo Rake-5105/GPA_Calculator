@@ -2937,9 +2937,9 @@
                 const data = await response.json();
 
                 if (response.ok && data.gpa !== undefined) {
-                    messageDiv.textContent = `Your GPA is ${data.gpa} (Total Credits: ${data.total_credits})`;
+                    messageDiv.innerHTML = `Your GPA : <b>${data.gpa}</b>   (Total Credits: <b>${data.total_credits}</b>)`;
                 } else {
-                    messageDiv.textContent = `Error: ${data.error || "Unknown error"}`;
+                    messageDiv.innerHTML = `Error: ${data.error || "Unknown error"}`;
                 }
             } catch (error) {
                 messageDiv.textContent = 'Error: Unable to connect to the API';
