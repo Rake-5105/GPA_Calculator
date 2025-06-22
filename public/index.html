@@ -2936,8 +2936,6 @@
                 });
                 const data = await response.json();
 
-                document.getElementById("gpa-message").style.display = "none";
-
                 if (response.ok && data.gpa !== undefined) {
                     messageDiv.textContent = `Your GPA is ${data.gpa} (Total Credits: ${data.total_credits})`;
                 } else {
