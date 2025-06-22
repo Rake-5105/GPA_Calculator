@@ -4,3 +4,9 @@
 
 [functions]
   directory = "netlify/functions"
+
+[[redirects]]
+  from = "/calculate-gpa"
+  to = "https://gpa-calculator-bpgj.onrender.com/calculate-gpa"
+  status = 200
+  force = true
