@@ -2897,5 +2897,52 @@
       text-transform: lowercase;
     }
   </style>
+  <script>
+        let clickCount = 0;
+        let isCalculating = false;
+
+        function calculateGPA() {
+            if (isCalculating) return;
+
+            const messageDiv = document.getElementById('message');
+            const waitMessageDiv = document.getElementById('waitMessage');
+            clickCount++;
+
+            // Display message based on click count
+            if (clickCount === 1) {
+                messageDiv.textContent = "Welcome! You're the first to wake up our sleepy API. Give it a moment to stretch!";
+            } else if (clickCount === 2) {
+                messageDiv.textContent = "Whoa, easy there! Don't smash the button, our API is working on it!";
+            } else {
+                messageDiv.textContent = "Okay, are you trying to break the internet? Chill, the API is doing its best!";
+            }
+            messageDiv.style.display = 'block';
+
+            // Show wait message and disable button
+            isCalculating = true;
+            waitMessageDiv.style.display = 'block';
+            document.querySelector('button[onclick="calculateGPA()"]').disabled = true;
+
+            // Simulate API call with a delay (replace with actual API call)
+            setTimeout(() => {
+                // Hide wait message and re-enable button
+                waitMessageDiv.style.display = 'none';
+                document.querySelector('button[onclick="calculateGPA()"]').disabled = false;
+                isCalculating = false;
+            }, 2000); // Simulating 2-second API call
+        }
+
+        function resetAll() {
+            document.getElementById('regulation').value = '';
+            document.getElementById('degree').value = '';
+            document.getElementById('department').value = '';
+            document.getElementById('semester').value = '';
+            document.getElementById('message').style.display = 'none';
+            document.getElementById('waitMessage').style.display = 'none';
+            clickCount = 0;
+            isCalculating = false;
+            document.querySelector('button[onclick="calculateGPA()"]').disabled = false;
+        }
+    </script>
 </body>
 </html>
