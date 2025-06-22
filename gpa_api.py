@@ -97,6 +97,8 @@ def calculate_gpa(courses):
 
 @app.route('/calculate-gpa', methods=['POST', 'OPTIONS'])
 def gpa_calculator():
+    data = request.get_json(force=True)  # or just request.get_json()
+    # ...rest of your logic...
     # Only handle POST requests here
     if request.method == 'POST':
         # ...your GPA calculation logic...
