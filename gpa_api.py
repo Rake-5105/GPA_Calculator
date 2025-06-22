@@ -19,8 +19,14 @@ CONFIG = {
     "MAX_COURSES": 50,
     "MAX_CREDITS": 10.0,
     "GRADE_POINTS": {
-        "O": 10.0, "A+": 9.0, "A": 8.0, "B+": 7.0, "B": 6.0, "C": 5.0,
-        "RA": 0.0, "W": 0.0
+        "O": 10.0, 
+        "A+": 9.0, 
+        "A": 8.0, 
+        "B+": 7.0, 
+        "B": 6.0, 
+        "C": 5.0,
+        "RA": 0.0, 
+        "W": 0.0
     }
 }
 
@@ -37,7 +43,7 @@ def handle_preflight():
         response.headers.add("Access-Control-Allow-Origin", "https://gpa-vec-cys27.netlify.app")
         response.headers.add("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
         response.headers.add("Access-Control-Allow-Headers", "Content-Type")
-        response.headers.add("Access-Control-Max-Age", "86400")  # Cache preflight for 24 hours
+        response.headers.add("Access-Control-Max-Age", "86400")
         return response, 200
 
 @app.after_request
@@ -98,14 +104,15 @@ def calculate_gpa(courses):
         return 0.0
     return round(total_points / total_credits, 2)
 
-@app.route('/calculate-gpa', methods=['POST'])
+@app.route('/calculate-gpa', methods=['POST','OPTIONS'])
 @rate_limit
 def gpa_calculator():
     try:
-        data = request.get_json()
+        data = request.get_json(silent=True)
+        logger.info(f"Received payload: {data}")
         if not data or "courses" not in data or not isinstance(data["courses"], list):
             logger.error("Invalid request: missing or invalid courses")
-            return jsonify({"error": "Please provide a valid list of courses"}), 400
+            return jsonify({"error": "Invalid request: 'courses' must be a non-empty list"}), 400
 
         courses = data["courses"]
         if not courses:
@@ -119,21 +126,21 @@ def gpa_calculator():
             grade = course.get("grade", "").strip().upper()
             if not grade or grade == "SELECT":
                 logger.warning(f"Unselected or empty grade at course index {i}")
-                return jsonify({"error": f"Please select a valid grade for course {i + 1}"}), 400
+                return jsonify({"error": f"Course {i + 1}: Please select a valid grade (not 'SELECT' or empty)"}), 400
             if grade not in CONFIG["GRADE_POINTS"]:
                 logger.warning(f"Invalid grade {grade} at course index {i}")
-                return jsonify({"error": f"Invalid grade '{grade}' for course {i + 1}"}), 400
+                return jsonify({"error": f"Course {i + 1}: Invalid grade '{grade}'. Valid grades: {list(CONFIG['GRADE_POINTS'].keys())}"}), 400
             try:
                 credits = float(course.get("credits", 0))
                 if credits <= 0:
                     logger.warning(f"Non-positive credits {credits} at course index {i}")
-                    return jsonify({"error": f"Credits for course {i + 1} must be positive"}), 400
+                    return jsonify({"error": f"Course {i + 1}: Credits must be positive and non-zero"}), 400
                 if credits > CONFIG["MAX_CREDITS"]:
                     logger.warning(f"Credits {credits} exceed max {CONFIG['MAX_CREDITS']} at course index {i}")
-                    return jsonify({"error": f"Credits for course {i + 1} cannot exceed {CONFIG['MAX_CREDITS']}"}), 400
+                    return jsonify({"error": f"Course {i + 1}: Credits cannot exceed {CONFIG['MAX_CREDITS']}"}), 400
             except (ValueError, TypeError):
                 logger.error(f"Invalid credits format at course index {i}")
-                return jsonify({"error": f"Invalid credits for course {i + 1}"}), 400
+                return jsonify({"error": f"Course {i + 1}: Credits must be a valid number"}), 400
 
         gpa = calculate_gpa(courses)
         total_credits = sum(float(course.get("credits", 0)) for course in courses 
@@ -146,7 +153,7 @@ def gpa_calculator():
         })
     except Exception as e:
         logger.error(f"Unexpected error in gpa_calculator: {str(e)}")
-        return jsonify({"error": "Internal server error. Please try again later."}), 500
+        return jsonify({"error": f"Internal server error: {str(e)}"}), 500
 
 @app.route('/warmup', methods=['GET'])
 @rate_limit
