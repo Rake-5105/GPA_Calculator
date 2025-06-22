@@ -91,12 +91,9 @@ def calculate_gpa(courses):
         return 0.0
     return round(total_points / total_credits, 2)
 
-@app.route('/calculate-gpa', methods=['POST'])
+@app.route('/calculate-gpa', methods=['POST', 'OPTIONS'])
 @rate_limit
 def gpa_calculator():
-    if request.method == 'OPTIONS':
-        # CORS preflight response
-        return '', 204
     try:
         data = request.get_json()
         if not data or "courses" not in data or not isinstance(data["courses"], list):
