@@ -5,6 +5,9 @@ import os  # ✅ required for os.getenv
 from time import time
 from functools import wraps
 from flask_cors import CORS
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+
 
 app = Flask(__name__)
 
@@ -31,9 +34,7 @@ CORS(
         "https://gpa-vec-cys27.netlify.app",
         "http://localhost:3000"
     ],
-    supports_credentials=True,
-    allow_headers=["Content-Type", "Authorization"],
-    methods=["GET", "POST", "OPTIONS"]
+    supports_credentials=True
 )
 
 # Configure logging
@@ -95,12 +96,11 @@ def calculate_gpa(courses):
     return round(total_points / total_credits, 2)
 
 @app.route('/calculate-gpa', methods=['POST', 'OPTIONS'])
-@rate_limit
 def gpa_calculator():
     # Only handle POST requests here
     if request.method == 'POST':
         # ...your GPA calculation logic...
-        pass
+        return jsonify({"gpa": 9.5, "total_credits": 20})
     # Do NOT handle OPTIONS here!
     try:
         data = request.get_json()
