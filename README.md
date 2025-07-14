@@ -31,6 +31,6 @@ Calculate GPA:
 
 Review Results:
   The calculated GPA will be displayed on the screen.
+<img width="1541" height="892" alt="image" src="https://github.com/user-attachments/assets/8cdd3a34-c3fc-47b3-b0d2-dae2a30c607d" />
 
-![image](https://github.com/user-attachments/assets/02505b96-fb99-47fd-b5f4-bdd544196a50)
 
