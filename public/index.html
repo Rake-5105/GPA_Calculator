@@ -10,9 +10,59 @@
 	html, body {
             margin: 0;
             padding: 0;
-            overflow-y: auto; /* Allow vertical scrolling */
-            height: auto; /* Avoid fixed height constraints */
-            touch-action: auto; /* Ensure touch events are not blocked */
+            overflow-y: scroll !important; /* Force scrollbar visibility */
+            min-height: 150vh !important; /* Ensure content overflows for scrolling */
+            touch-action: auto !important; /* Allow touch events */
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            -webkit-tap-highlight-color: transparent; /* Prevent tap highlights */
+        }
+        .container {
+            position: relative !important; /* Prevent fixed/sticky issues */
+            min-height: 150vh !important; /* Ensure container allows scrolling */
+            overflow-y: visible !important; /* Avoid scroll blocking */
+            padding-right: 20px; /* Space for scrollbar */
+        }
+        /* Modern, highly visible scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 16px; /* Wider for mobile visibility */
+            -webkit-appearance: none; /* Disable default mobile styling */
+        }
+        ::-webkit-scrollbar-track {
+            background: #e0e0e0; /* Light gray track */
+            border-radius: 12px;
+            margin: 10px 0;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #007bff, #00b7eb); /* Vibrant gradient */
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Glow effect */
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #0056b3, #0098c7);
+        }
+        /* Firefox scrollbar */
+        html {
+            scrollbar-width: auto;
+            scrollbar-color: #007bff #e0e0e0;
+        }
+        /* Cursor background element */
+        .cursor-background {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: rgba(0, 123, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none !important;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+        /* Ensure interactive elements are accessible */
+        select, button, form, input, label {
+            z-index: 10000 !important;
+            touch-action: auto !important;
         }
         body {
             font-family: "KINFOLK", serif;
@@ -2880,7 +2930,32 @@
       text-transform: lowercase;
     }
   </style>
+	    
+<div class="cursor-background"></div>
+	    
   <script>
+	// Handle cursor background for mouse and touch
+        const cursor = document.querySelector('.cursor-background');
+        
+        // Mouse movement
+        document.addEventListener('mousemove', function(event) {
+            cursor.style.display = 'block';
+            cursor.style.left = event.clientX + 'px';
+            cursor.style.top = event.clientY + 'px';
+        });
+
+        // Touch movement
+        document.addEventListener('touchmove', function(event) {
+            cursor.style.display = 'block';
+            cursor.style.left = event.touches[0].clientX + 'px';
+            cursor.style.top = event.touches[0].clientY + 'px';
+        }, { passive: true }); // Allow scrolling
+
+        // Hide cursor when touch ends
+        document.addEventListener('touchend', function() {
+            cursor.style.display = 'none';
+        }, { passive: true });
+	  
         let clickCount = 0;
         let isCalculating = false;
 
